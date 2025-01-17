@@ -1,0 +1,17 @@
+
+main {
+    min-height: 100vh;
+}
+
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height viewport */
+    width: 100vw; /* Full width viewport */
+}
+
+svg {
+    margin: auto;
+}

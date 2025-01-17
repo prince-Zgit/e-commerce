@@ -1,0 +1,110 @@
+
+<section *ngIf="isLoading">
+
+
+
+</section>
+
+<section class="py-4 bg-white" *ngIf="!isLoading">
+  <app-breadcrumb></app-breadcrumb>
+  <article class="grid grid-cols-1 md:grid-cols-2">
+    <div class="flex flex-col md:flex-row col-span-2 md:col-span-1 mx-auto md:mx-0">
+        <div class="flex flex-wrap flex-row md:flex-col gap-2 order-2 md:order-1">
+            <div 
+            [ngClass]="selectedImage==i?'w-28 cursor-pointer border border-gray-400':'w-28 cursor-pointer'" 
+            *ngFor="let image of images; index as i">
+                <img class="object-center" [src]="image" [alt]="title" (click)="onImage(image,i)">
+            </div>
+        </div>
+
+        <div class="mx-auto order-1 md:order-2">
+            <img class="w-full object-cover object-center" [src]="imageSrc" [alt]="title">
+        </div>
+    </div>
+    <div class="col-span-1 md:col-span-1 md:px-6 lg:px-10 py-4">
+        <h4 class="text-lg text-gray-600">Brand Name</h4>
+        <h3 class="font-bold text-2xl">{{title}}</h3>
+        <p class="text-sm text-gray-600">{{product.type}}</p>
+
+        <div class="flex items-center my-3">
+          <span class="text-md mr-2">{{product.rating.rate}}</span>
+          <span *ngFor="let ratestar of ratingList">
+            <i class="fa-solid fa-star text-orange-400" *ngIf="ratestar"></i>
+          </span>
+          <span *ngFor="let ratestar of ratingList">
+            <i class="fa-regular fa-star text-orange-400" *ngIf="!ratestar" ></i>
+          </span>
+          <span class="ml-2 text-md">{{product.rating.count}} Reviews</span>
+        </div>
+
+        <div>
+          <p class="leading-relaxed text-gray-700">
+            {{product.description}}.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor vero laudantium error porro voluptatibus animi aliquid autem, iste iusto facere? Laborum reprehenderit minima officia voluptate et quod. Dolorem, repellat quia!
+          </p>
+        </div>
+
+        <div class="flex">
+          <p class="mt-4 text-2xl font-bold">&#8377;{{product.price}}</p>
+          <p class="ml-4 mt-4 text-2xl text-gray-600 line-through" *ngIf="product.prevprice!==0">&#8377;{{product.prevprice}}</p>
+          <p class="ml-4 mt-5 text-xl text-red-700" *ngIf="product.prevprice!==0">-{{discount}}%</p> 
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button 
+          *ngFor="let size of product.sizes; let i"
+          [ngClass]="selectedSize == i ? 'h-23 w-23 py-2 w-1/4 border-2 border-[#3c64a9] bg-[#3c64a9] text-white transitiion-all duration-150':
+          'h-23 w-23 py-2 w-1/4 border-2 border-[#3c64a9] hover:bg-[#3c64a9] hover:text-white transitiion-all duration-150'" 
+          (click)="addSize(size,i)">
+            <span>
+              {{size}}
+            </span>
+          </button>
+        </div>
+
+        <div class="w-full flex flex-col lg:flex-row gap-4 mt-6">
+            <div *ngIf="product.stock=='Out of stock'" class="py-4 px-10 text-center font-semibold text-yellow-600 text-white">
+                NOT AVAILABLE
+          </div>
+          <ng-template #addtocart>
+            <button 
+            *ngIf="product.stock=='In stock'"
+            class="py-4 px-10 bg-gray-800 text-white"
+            (click)="addToCart(product)">
+              <i title="Shopping Cart" class="fa-solid fa-bag-shopping mr-2"></i>
+              ADD TO CART
+            </button>
+          </ng-template>
+          <button 
+          class="py-4 px-16 bg-red-800 text-white"
+          (click)="removeFromCart(product)"
+          *ngIf="isProductInCart(product); else addtocart">
+            <i class="fa-solid fa-trash mr-2"></i>
+            REMOVE
+          </button>
+
+        </div>
+
+        <div class="mt-10">
+          <h3 class="text-xl font-bold">Product Details</h3>
+          <div>
+            <h5 class="text-lg font-semibold text-gray-600">GENERAL INFORMATION</h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex, officia nihil. 
+              Non rem at quasi earum fuga debitis animi hic expedita porro totam quaerat ut adipisci, 
+              cupiditate ea. Tempore, atque?
+            </p>
+          </div>
+        </div>
+    </div>
+    
+  </article>
+
+
+</section>
+
+
+
+
+
+
